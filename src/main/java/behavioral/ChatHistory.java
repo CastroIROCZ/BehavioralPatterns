@@ -1,8 +1,9 @@
 package behavioral;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
-public class ChatHistory {
+public class ChatHistory implements IterableByUser {
     private final ArrayList<Message> messages = new ArrayList<>();
     
     public ChatHistory() { 
@@ -28,5 +29,10 @@ public class ChatHistory {
 
     public boolean removeMessage(Message message) {
         return this.messages.remove(message);
+    }
+    
+    @Override
+    public Iterator<Message> iterator(User userToSearchWith) {
+        return new SearchMessagesByUser(this.messages, userToSearchWith);
     }
 }

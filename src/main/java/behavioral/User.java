@@ -2,8 +2,9 @@ package behavioral;
 
 import java.util.ArrayList;
 import java.util.ArrayDeque;
+import java.util.Iterator;
 
-public class User {
+public class User implements IterableByUser {
     private String userName;
     private final ChatHistory chatHistory = new ChatHistory();
     private final ChatServer server;
@@ -56,5 +57,10 @@ public class User {
 
     public ArrayList<Message> getChatHistory() {
         return chatHistory.getChatHistory();
+    }
+
+    @Override
+    public Iterator<Message> iterator(User userToSearchWith) {
+        return this.chatHistory.iterator(userToSearchWith);
     }
 }

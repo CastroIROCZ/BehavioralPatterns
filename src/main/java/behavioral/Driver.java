@@ -1,6 +1,7 @@
 package behavioral;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Driver{
     public static void main(String[] args) {
@@ -78,6 +79,29 @@ public class Driver{
         castroOnly.add(castro);
 
         angel.sendMessage("Hello Castro", castroOnly);
+        
+        System.out.println("\n===== Iterator Design Pattern =====");
+
+        System.out.println("\nSearching Angel's chat history for messages involving Eric");
+
+        Iterator<Message> angelIterator = angel.iterator(eric);
+
+        while (angelIterator.hasNext()) {
+            Message message = angelIterator.next();
+            System.out.println("Message: " + message.getContent());
+            System.out.println("Timestamp: " + message.getTimeStamp());
+        }
+
+        System.out.println("\nSearching Eric's chat history for messages involving Castro");
+
+        Iterator<Message> ericIterator = eric.iterator(castro);
+
+        while (ericIterator.hasNext()) {
+            Message message = ericIterator.next();
+            System.out.println("Message: " + message.getContent());
+            System.out.println("Timestamp: " + message.getTimeStamp());
+        }
+
 
         System.out.println("\n===== End of Chat Application =====");
     }
