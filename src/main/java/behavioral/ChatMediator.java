@@ -1,8 +1,10 @@
 package behavioral;
 
+import java.util.ArrayList;
+
 public interface ChatMediator {
     
     void registerUser(User user);
 
-    void sendMessage(String message, User sender);
+    void sendMessage(User sender, String content, ArrayList<User> recipients);
 }
