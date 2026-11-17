@@ -24,4 +24,8 @@ public class User {
     public void undoMessage() {
         
     }
+
+    public void blockUser(User blockedUser) {
+        server.blockUser(this, blockedUser);
+    }
 }
