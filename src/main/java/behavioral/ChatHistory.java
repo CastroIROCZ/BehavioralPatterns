@@ -25,4 +25,8 @@ public class ChatHistory {
         
         return null;
     }
+
+    public boolean removeMessage(Message message) {
+        return this.messages.remove(message);
+    }
 }

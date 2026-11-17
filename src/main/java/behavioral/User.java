@@ -1,11 +1,13 @@
 package behavioral;
 
 import java.util.ArrayList;
+import java.util.ArrayDeque;
 
 public class User {
     private String userName;
     private final ChatHistory chatHistory = new ChatHistory();
     private final ChatServer server;
+    private final ArrayDeque<MessageMemento> sentMessages = new ArrayDeque<>();
 
     public User(String userName, ChatServer server) {
         this.userName = userName;
@@ -22,14 +24,37 @@ public class User {
     }
 
     public void recordSentMessage(Message message) {
-        chatHistory.addMessage(message);
+        this.chatHistory.addMessage(message);
+        this.sentMessages.push(message.saveState());
     }
 
     public void undoMessage() {
-        
+        if (sentMessages.isEmpty()) {
+            System.out.println("No messages to undo");
+            return;
+        }
+
+        MessageMemento memento = sentMessages.peek();
+        Message lastMessage = chatHistory.getLastMessage(this);
+
+        if (lastMessage != null &&
+            lastMessage.getContent().equals(memento.getContent()) &&
+            lastMessage.getTimeStamp().equals(memento.getTimeStamp())) {
+
+            server.undoMessage(this, lastMessage);
+            sentMessages.pop();
+        }
     }
 
     public void blockUser(User blockedUser) {
         server.blockUser(this, blockedUser);
+    }
+
+    public void removeMessage(Message message) {
+        this.chatHistory.removeMessage(message);
+    }
+
+    public ArrayList<Message> getChatHistory() {
+        return chatHistory.getChatHistory();
     }
 }

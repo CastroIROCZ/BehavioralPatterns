@@ -59,5 +59,17 @@ public class ChatServer implements ChatMediator {
             System.out.println("Must register user first");
         }
     }
+
+    public void undoMessage(User sender, Message message) {
+        if (!users.contains(sender) || message.getSender() != sender) {
+            return;
+        }
+
+        sender.removeMessage(message);
+
+        for (User recipient : message.getRecipients()) {
+            recipient.removeMessage(message);
+        }
+    }
     
 }
