@@ -33,5 +33,9 @@ public class Message {
         return this.timeStamp;
     }
 
+    public MessageMemento saveState() {
+        return new MessageMemento(this.content, this.timeStamp);
+    }
+
 
 }

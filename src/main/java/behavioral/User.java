@@ -21,6 +21,10 @@ public class User {
         this.chatHistory.addMessage(message);
     }
 
+    public void recordSentMessage(Message message) {
+        chatHistory.addMessage(message);
+    }
+
     public void undoMessage() {
         
     }

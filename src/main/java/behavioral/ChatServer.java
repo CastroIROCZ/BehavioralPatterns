@@ -36,6 +36,7 @@ public class ChatServer implements ChatMediator {
     public void sendMessage(User sender, String content, ArrayList<User> recipients) {
         if (users.contains(sender)) {
             Message message = new Message(sender, content, recipients);
+            boolean delivered = false;
 
             for (User recipient : recipients) {
                 if (!users.contains(recipient)) {
@@ -46,7 +47,12 @@ public class ChatServer implements ChatMediator {
                 }
                 else {
                     recipient.receiveMessage(message);
+                    delivered =  true;
                 }
+            }
+
+            if (delivered) { 
+                sender.recordSentMessage(message);
             }
         }
         else {
