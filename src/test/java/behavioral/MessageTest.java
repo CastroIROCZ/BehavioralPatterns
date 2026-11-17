@@ -9,8 +9,13 @@ public class MessageTest {
     
     @Test 
     public void testMessageCreation() {
-        User Beltz = new User("Beltz");
-        User Castro = new User("Castro");
+        ChatServer server = new ChatServer();
+
+        User Beltz = new User("Beltz", server);
+        User Castro = new User("Castro", server);
+
+        server.registerUser(Beltz);
+        server.registerUser(Castro);
 
         ArrayList<User> recipients = new ArrayList<>();
         recipients.add(Castro);

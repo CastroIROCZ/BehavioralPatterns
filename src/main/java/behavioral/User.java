@@ -4,32 +4,24 @@ import java.util.ArrayList;
 
 public class User {
     private String userName;
-    private ArrayList<String> blockedUsers;
+    private final ChatHistory chatHistory = new ChatHistory();
+    private final ChatServer server;
 
-    public User(String userName) {
+    public User(String userName, ChatServer server) {
         this.userName = userName;
-        this.blockedUsers = new ArrayList<>();
+        this.server = server;
     }
 
-    public void blockUser(String userName) {
-        if (!blockedUsers.contains(userName)) { 
-            blockedUsers.add(userName);
-        }
+    public void sendMessage(String content, ArrayList<User> recipients) {
+        this.server.sendMessage(this, content, recipients);
+
     }
 
-    public boolean isBlocked(String userName) {
-        return blockedUsers.contains(userName);
-    }
-
-    public void sendMessage(String message) {
-        
-    }
-
-    public void recieveMessage(String message) {
-
+    public void receiveMessage(Message message) {
+        this.chatHistory.addMessage(message);
     }
 
     public void undoMessage() {
-
+        
     }
 }
